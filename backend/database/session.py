@@ -1,25 +1,21 @@
 """
 Database Session & Engine Setup
 ================================
-This module configures the SQLite database connection,
-creates the SQLAlchemy engine, session factory, and
-initializes all database tables used by the application.
-
-Responsibilities:
-- Define database engine
-- Provide DB session dependency
-- Create tables on startup
+Configures the PostgreSQL connection using SQLAlchemy.
+Connection string is pulled from the DATABASE_URL environment variable
+so credentials never live in source code.
 """
 
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DATABASE_URL = "sqlite:///./modelwatch.db"
-
-engine = create_engine(
-    DATABASE_URL,
-    connect_args={"check_same_thread": False}
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql://modelwatch:modelwatch@localhost:5432/modelwatch"
 )
+
+engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(
     autocommit=False,
@@ -33,7 +29,7 @@ Base = declarative_base()
 def get_db():
     """
     FastAPI dependency that provides a database session.
-    Ensures proper session cleanup after request.
+    Ensures proper session cleanup after each request.
     """
     db = SessionLocal()
     try:
