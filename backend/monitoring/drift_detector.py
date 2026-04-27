@@ -11,7 +11,6 @@ Dependencies:
 - SQLAlchemy
 """
 
-import numpy as np
 from sqlalchemy.orm import Session
 
 from backend.monitoring.windowing import get_recent_feature_window

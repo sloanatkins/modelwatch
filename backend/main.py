@@ -38,6 +38,7 @@ Base.metadata.create_all(bind=engine)
 app.include_router(predict_router)
 app.include_router(drift_router)
 
+
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
