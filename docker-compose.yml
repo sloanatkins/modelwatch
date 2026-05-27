@@ -1,0 +1,67 @@
+services:
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: modelwatch
+      POSTGRES_PASSWORD: modelwatch
+      POSTGRES_DB: modelwatch
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U modelwatch"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://modelwatch:modelwatch@postgres:5432/modelwatch
+      MODEL_RUN_ID: ${MODEL_RUN_ID}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./mlruns:/app/mlruns
+      - ./artifacts:/app/artifacts
+      - ./models/saved_models:/app/models/saved_models
+
+  monitor:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    environment:
+      DATABASE_URL: postgresql://modelwatch:modelwatch@postgres:5432/modelwatch
+      MODEL_RUN_ID: ${MODEL_RUN_ID}
+      MONITOR_INTERVAL_SECONDS: 300
+      MONITOR_WINDOW_SIZE: 500
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./mlruns:/app/mlruns
+      - ./artifacts:/app/artifacts
+      - ./models/saved_models:/app/models/saved_models
+    command: ["python", "-m", "backend.monitoring.scheduler"]
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      DATABASE_URL: postgresql://modelwatch:modelwatch@postgres:5432/modelwatch
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
