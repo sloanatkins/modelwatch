@@ -38,7 +38,7 @@ N_FEATURES = 29
 # Baseline feature stats (approximate means/stds from training data)
 # V1-V28 are PCA components centered near 0, Amount has a different scale
 BASELINE_MEANS = [0.0] * 28 + [88.0]   # Amount mean ~$88
-BASELINE_STDS  = [1.5] * 28 + [250.0]  # Amount std ~$250
+BASELINE_STDS = [1.5] * 28 + [250.0]  # Amount std ~$250
 
 
 def generate_features(drift_factor: float = 0.0) -> list:
