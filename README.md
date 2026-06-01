@@ -5,8 +5,11 @@ ModelWatch is a production-style ML monitoring system built around a core questi
 
 The system is designed to resemble how real ML teams monitor models in production — not just train them once and call it done.
 
-![ModelWatch Dashboard](assets/dashboard.png)
+## Dashboard
 
+![ModelWatch Top](assets/dashboard_top.png)
+![ModelWatch Drift](assets/dashboard_drift.png)
+![ModelWatch Alerts](assets/dashboard_alerts.png)
 ---
 
 ## What This Demonstrates
