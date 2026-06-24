@@ -2,6 +2,8 @@
 
 **Production ML Observability & Drift Detection System** | Python · FastAPI · PostgreSQL · MLflow · Streamlit · Docker
 
+[![CI](https://github.com/sloanatkins/modelwatch/actions/workflows/ci.yml/badge.svg)](https://github.com/sloanatkins/modelwatch/actions/workflows/ci.yml)
+
 ---
 
 ## Overview
@@ -159,13 +161,6 @@ Download the [Credit Card Fraud Detection dataset](https://www.kaggle.com/datase
 
 ---
 
-## CI
-
-[![CI](https://github.com/sloanatkins/modelwatch/actions/workflows/ci.yml/badge.svg)](https://github.com/sloanatkins/modelwatch/actions/workflows/ci.yml)
-
-GitHub Actions runs on every push to main: installs dependencies, lints with flake8, runs pytest.
-
----
 
 Built with Python, FastAPI, PostgreSQL, MLflow, Streamlit, Plotly, Docker, and GitHub Actions.
 
