@@ -10,7 +10,6 @@ Tests:
 - Drift endpoint returns 200 or 400 (baselines may not exist in CI)
 """
 
-import pytest
 from fastapi.testclient import TestClient
 from backend.main import app
 
