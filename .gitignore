@@ -7,4 +7,5 @@ data/raw/
 modelwatch.db
 mlruns/
 *.pkl
-artifacts/mlflow.db
+artifacts/
+mlflow.db
